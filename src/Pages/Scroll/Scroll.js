@@ -1,4 +1,4 @@
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import './Scroll.css'
@@ -47,6 +47,7 @@ export default function Scroll() {
           filterArr.map((item, index)=><a href={item}><img src={item} alt='randomImage' key={index} className='img'/></a>)
         }
       </div>
+      <FontAwesomeIcon icon={faCircleArrowUp} className='arrow_up' size='3x'/>
     </div>
   )
 }
