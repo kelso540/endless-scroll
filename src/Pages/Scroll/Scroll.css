@@ -1,3 +1,12 @@
 .testScrollDiv{
     height: 1000px;
 }
+.img{
+    width: 70%;
+}
+.headDiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
