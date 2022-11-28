@@ -13,8 +13,9 @@ export default function Scroll() {
     const [getClientHeight, setGetClientHeight] = useState(document.documentElement.clientHeight);
     const [getScrollTop, setGetScrollTop] = useState(document.documentElement.scrollTop);
     const [scrollPClient, setScrollPClient] = useState(0);
+    const [arrowDisplay, setArrowDisplay] = useState(false); 
 
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getScrollHeight = () => {
       setScrollHeight(document.documentElement.scrollHeight); 
       setGetClientHeight(document.documentElement.clientHeight);
@@ -27,10 +28,21 @@ export default function Scroll() {
         setNum(num + 1);
         setImg(`https://picsum.photos/seed/${num}/400`); 
         setScroll(current=>[...current, img]);
-        setFilterArr([...new Set(scroll)]);
-        console.log(filterArr);
+        setFilterArr([...new Set(scroll)]); 
       }
-    }, [num, img, scroll, filterArr, scrollHeight, scrollPClient])
+    }, [num, img, scroll, filterArr, scrollHeight, scrollPClient]) 
+
+    const scrollToTop = () => {
+      window.scrollTo(0,0); 
+    }
+
+    useEffect(()=>{
+      if(document.documentElement.scrollTop > 400){
+        setArrowDisplay(true)
+      } else {
+        setArrowDisplay(false)
+      }
+    }, [getScrollHeight])
     
     document.addEventListener('scroll', getScrollHeight);
 
@@ -38,16 +50,20 @@ export default function Scroll() {
     <div>
       <div>
         <div className='headDiv'>
-          <FontAwesomeIcon icon={faArrowDown} size='2x'/> <h1 className='header'>Scroll down forever!</h1> <FontAwesomeIcon icon={faArrowDown} size='2x'/>
+          <FontAwesomeIcon icon={faArrowDown} size='2x' className='App-logo'/> <h1 className='header'>Scroll down forever!</h1> <FontAwesomeIcon icon={faArrowDown} size='2x' className='App-logo'/>
         </div>
-        <a href='https://picsum.photos'><img src='https://picsum.photos/300' alt='randomImage' className='img' /></a>
+        <div className='headImgDiv'>
+          <a href='https://picsum.photos/seed/holiday/400'><img src='https://picsum.photos/seed/holiday/400' alt='randomImage' className='img' /></a>
+          <a href='https://picsum.photos/seed/outside/400'><img src='https://picsum.photos/seed/outside/400' alt='randomImage' className='img' /></a>
+          <a href='https://picsum.photos/seed/inside/400'><img src='https://picsum.photos/seed/inside/400' alt='randomImage' className='img' /></a>
+        </div>
       </div>
       <div className='testScrollDiv'> 
         {
           filterArr.map((item, index)=><a href={item}><img src={item} alt='randomImage' key={index} className='img'/></a>)
         }
       </div>
-      <FontAwesomeIcon icon={faCircleArrowUp} className='arrow_up' size='3x'/>
+      <FontAwesomeIcon icon={faCircleArrowUp} className={(arrowDisplay)?'arrowUp':'arrowOffScreen'} size='3x' onClick={scrollToTop}/>
     </div>
   )
 }
